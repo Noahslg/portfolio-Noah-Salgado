@@ -1,25 +1,19 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: Noahslg/noahsalgado
   branch: main
-  identity_url: https://noahsalgado.netlify.app/.netlify/identity
-  gateway_url: https://api.netlify.com
 
-media_folder: "admin/media"
-public_folder: "/admin/media"
+media_folder: "static/images/uploads"
+public_folder: "/images/uploads"
 
 collections:
   - name: "projects"
     label: "Projets"
-    folder: "projects"
+    folder: "content/projects"
     create: true
     slug: "{{slug}}"
     fields:
       - { label: "Titre", name: "title", widget: "string" }
       - { label: "Description", name: "description", widget: "text" }
       - { label: "Image", name: "image", widget: "image" }
-      - {
-          label: "Typographie",
-          name: "font",
-          widget: "select",
-          options: ["sans-serif", "serif", "monospace", "cursive"]
-        }
+      - { label: "Typographie", name: "font", widget: "select", options: ["sans-serif", "serif", "monospace", "cursive"] }
