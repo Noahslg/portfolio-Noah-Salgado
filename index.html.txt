@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Noah Salgado</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+      color: #111;
+    }
+
+    header {
+      padding: 2rem;
+      text-align: left;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    nav {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #111;
+      font-size: 1rem;
+    }
+
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .project-item {
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 2rem;
+    }
+
+    .project-item h2 {
+      margin-bottom: 0.5rem;
+    }
+
+    .project-item a {
+      color: #555;
+      text-decoration: none;
+    }
+
+    .admin-panel {
+      max-width: 800px;
+      margin: 3rem auto;
+      background: #fff;
+      padding: 2rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .admin-panel h2 {
+      margin-bottom: 1rem;
+    }
+
+    .admin-panel input,
+    .admin-panel textarea,
+    .admin-panel select {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .admin-panel button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background: #111;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Noah Salgado</h1>
+  </header>
+
+  <div class="project-list">
+    <div class="project-item">
+      <h2><a href="#">Projet 1 : Titre</a></h2>
+      <p>Petite description du projet. Vidéo, image, ou texte à venir.</p>
+    </div>
+    <div class="project-item">
+      <h2><a href="#">Projet 2 : Titre</a></h2>
+      <p>Une autre description, avec peut-être des liens, des images, etc.</p>
+    </div>
+  </div>
+
+  <div class="admin-panel">
+    <h2>Ajout d'un projet</h2>
+    <input type="text" placeholder="Titre du projet" id="titre" />
+    <textarea placeholder="Description du projet" id="description"></textarea>
+    <input type="file" accept="image/*" id="image" />
+    <select id="typo">
+      <option value="sans-serif">Sans-serif</option>
+      <option value="serif">Serif</option>
+      <option value="monospace">Monospace</option>
+      <option value="cursive">Cursive</option>
+    </select>
+    <button onclick="ajouterProjet()">Ajouter</button>
+  </div>
+
+  <script>
+    function ajouterProjet() {
+      const titre = document.getElementById("titre").value;
+      const description = document.getElementById("description").value;
+      const image = document.getElementById("image").files[0];
+      const typo = document.getElementById("typo").value;
+
+      if (!titre || !description) {
+        alert("Merci de remplir le titre et la description.");
+        return;
+      }
+
+      const list = document.querySelector(".project-list");
+      const item = document.createElement("div");
+      item.className = "project-item";
+      item.style.fontFamily = typo;
+
+      const h2 = document.createElement("h2");
+      h2.innerText = titre;
+      const p = document.createElement("p");
+      p.innerText = description;
+
+      item.appendChild(h2);
+      item.appendChild(p);
+
+      if (image) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          img.style.maxWidth = "100%";
+          img.style.marginTop = "1rem";
+          item.appendChild(img);
+        };
+        reader.readAsDataURL(image);
+      }
+
+      list.appendChild(item);
+
+      // Réinitialiser le formulaire
+      document.getElementById("titre").value = "";
+      document.getElementById("description").value = "";
+      document.getElementById("image").value = "";
+      document.getElementById("typo").value = "sans-serif";
+    }
+  </script>
+</body>
+</html>
